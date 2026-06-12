@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
@@ -187,8 +188,18 @@ async function buildPackageForPlatform(targetPlatform) {
         opts.ignore = ['inklecate_mac', 'build-package.js']
     }
 
-    const appPaths = await packager(opts);
-    
+    console.log('Starting packager with opts:', JSON.stringify(opts, null, 2));
+
+    try {
+        const appPaths = await packager(opts);
+        console.log('Packager succeeded, output paths:', appPaths);
+    } catch (error) {
+        console.error('Packager failed!');
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
+        throw error;
+    }
 
     // Only zip it up if requested, otherwise assume
     // we're doing a local build just to run locally

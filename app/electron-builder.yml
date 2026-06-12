@@ -1,0 +1,17 @@
+appId: com.inkle.inky
+productName: Inky
+directories:
+  output: dist
+files:
+  - main-process/**/*
+  - renderer/**/*
+  - resources/**/*
+  - package.json
+win:
+  target: portable
+  icon: ../resources/Icon1024.png
+  artifactName: "${productName}-portable-${arch}.${ext}"
+  requestedExecutionLevel: asInvoker
+  asarUnpack: "main-process/ink/**/*"
+extraMetadata:
+  main: "main-process/main.js"
